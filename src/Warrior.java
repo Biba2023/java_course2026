@@ -2,14 +2,14 @@ public class Warrior extends Hero implements Castable, Restable{
     private final int armor;
     public Warrior(String name, int maxHealth, int baseAttack, int armor) {
         super(name, maxHealth, baseAttack);
-        this.armor = armor;
+        if(armor < 0){
+            this.armor = MIN_STAT_VALUE;
+        }
+        else this.armor = armor;
     }
 
     @Override
     public void takeDamage(int damage){
-        if (damage <= 0 || !isAlive()) {
-            return;
-        }
         int finalDamage = damage - armor;
         if(finalDamage < 1){
             finalDamage = 1;
@@ -40,7 +40,7 @@ public class Warrior extends Hero implements Castable, Restable{
 
     @Override
     public boolean canCast() {
-        if(getMaxHealth() / 2 > getHealth()){
+        if(getMaxHealth() * 0.5 > getHealth()){
             return true;
         }
         return false;
@@ -52,6 +52,7 @@ public class Warrior extends Hero implements Castable, Restable{
             return;
         }
         target.takeDamage(getBaseAttack());
+        System.out.println(getName() + " аттакует" + target.getName() + " и наносит " + getBaseAttack() + " урона.");
     }
 
     @Override
@@ -76,7 +77,7 @@ public class Warrior extends Hero implements Castable, Restable{
             return;
         }
         heal(armor * 2);
-        System.out.println(getName() + "вВосстановливает здоровье");
+        System.out.println(getName() + "восстановливает здоровье");
     }
 
     @Override

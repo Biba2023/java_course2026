@@ -1,11 +1,11 @@
 public abstract class Hero {
-    static final int MIN_STAT_VALUE = 1;
+    public static final int MIN_STAT_VALUE = 1;
     private final String name;
     private final int maxHealth, baseAttack;
     private int health;
 
     public Hero(String name, int maxHealth, int baseAttack){
-        if (name == null) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя героя не может быть пустым");
         }
         else this.name = name;
